@@ -6,6 +6,7 @@ import listEndpoints from 'express-list-endpoints'
 
 import { NODE_ENV } from '@config'
 import { errorHandler, routesLogger } from '@middlewares'
+import apiV1Routes from '@routes/api/v1'
 import { logger, getColorForMethod, ServerError } from '@utils'
 
 const app = express()
@@ -18,6 +19,8 @@ app.use(express.json())
 if (NODE_ENV !== 'test') {
   app.use(routesLogger)
 }
+
+app.use('/api/v1', apiV1Routes)
 
 app.use((_req, _res, next) => {
   next(new ServerError('Not found', 404))
