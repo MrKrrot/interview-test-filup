@@ -1,0 +1,5 @@
+export * from './getAllTrainers'
+export * from './getTrainerById'
+export * from './createNewTrainer'
+export * from './updateTrainerById'
+export * from './deleteTrainerById'

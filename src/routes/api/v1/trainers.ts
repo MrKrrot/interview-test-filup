@@ -1,11 +1,21 @@
 import { Router } from 'express'
 
+import {
+  createNewTrainer,
+  getAllTrainers,
+  getTrainerById,
+  updateTrainerById,
+  deleteTrainerById
+} from '@controllers'
+import { schemaValidator } from '@middlewares'
+import { trainerSchema } from '@validations'
+
 const router = Router()
 
-router.get('/', (req, res) => res.json({ message: 'Hello, Trainer!' }))
-router.get('/:id', (req, res) => res.json({ message: `Hello, Trainer ${req.params.id}!` }))
-router.post('/', (req, res) => res.json({ message: 'Trainer created!' }))
-router.put('/:id', (req, res) => res.json({ message: `Trainer ${req.params.id} updated!` }))
-router.delete('/:id', (req, res) => res.json({ message: `Trainer ${req.params.id} deleted!` }))
+router.get('/', getAllTrainers)
+router.get('/:id', getTrainerById)
+router.post('/', schemaValidator(trainerSchema), createNewTrainer)
+router.put('/:id', schemaValidator(trainerSchema), updateTrainerById)
+router.delete('/:id', deleteTrainerById)
 
 export default router

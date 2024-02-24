@@ -5,18 +5,16 @@ import { ServerError } from '@utils'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const errorHandler = (err: any, req: Request, res: Response, _next: NextFunction) => {
-  if (err.name === 'ValidationError') {
-    const regex = /Validator failed for path `([^`]+)` with value `([^`]+)`/g
-    const matches = err.message.matchAll(regex)
-    const errorMessages: string[] = []
+  if (err.name === 'CastError') {
+    return res.status(400).json({
+      message: 'Invalid id',
+      statusCode: 400
+    })
+  }
 
-    for (const match of matches) {
-      const [, field, value] = match
-      errorMessages.push(`${field} ${value} is already taken.`)
-    }
-
+  if (err.code === 11000) {
     return res.status(409).json({
-      message: errorMessages,
+      message: 'That phone number already exists.',
       statusCode: 409
     })
   }
@@ -34,7 +32,8 @@ const errorHandler = (err: any, req: Request, res: Response, _next: NextFunction
       message: err.message
     })
   }
-  res.send({ statusCode: 500, message: err.message })
+
+  res.status(500).json({ statusCode: 500, message: err.message })
 }
 
 export default errorHandler
