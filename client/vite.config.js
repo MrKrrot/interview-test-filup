@@ -9,9 +9,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '/src',
+      '@config': '/src/config',
       '@components': '/src/components',
-      '@pages/*': '/src/pages/*',
-      '@hooks': '/src/hooks'
+      '@pages': '/src/pages',
+      '@hooks': '/src/hooks',
+      '@services': '/src/services'
     }
   },
   plugins: [react()]
