@@ -10,6 +10,8 @@ export const Form = ({ id }) => {
     medals: 0
   })
 
+  const [error, setError] = useState(null)
+
   const { getTrainer, createNewTrainer, updateTrainerById } = useTrainers()
   const navigate = useNavigate()
 
@@ -34,9 +36,17 @@ export const Form = ({ id }) => {
     data.medals = Number(data.medals)
 
     if (id) {
-      await updateTrainerById(id, data)
+      const [error] = await updateTrainerById(id, data)
+      if (error) {
+        setError(error)
+        return
+      }
     } else {
-      await createNewTrainer(data)
+      const [error] = await createNewTrainer(data)
+      if (error) {
+        setError(error)
+        return
+      }
     }
 
     setData({
@@ -52,6 +62,7 @@ export const Form = ({ id }) => {
   return (
     <div className="container mx-auto">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-xs mx-auto">
+        {error && <p className="text-red-500">{error}</p>}
         <input
           type="text"
           name="name"

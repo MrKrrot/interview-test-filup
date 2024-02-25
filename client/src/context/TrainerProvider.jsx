@@ -60,7 +60,8 @@ export const TrainerContextProvider = ({ children }) => {
     if (error) {
       return [error, null]
     }
-    setTrainers(trainers.filter(trainer => trainer.id !== id))
+
+    setTrainers(trainers.filter(trainer => trainer._id !== id))
     return [null, data]
   }
 

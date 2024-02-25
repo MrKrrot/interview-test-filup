@@ -24,7 +24,10 @@ const Pokedex = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <Link to="/" className="text-blue-500 block mb-4">
+      <Link
+        to="/"
+        className=" text-blue-500 px-4 py-2 rounded-md hover:underline transition-all duration-200 ease-in-out"
+      >
         Back to Home
       </Link>
       <h1 className="text-4xl font-bold mb-8 text-center">Pokédex</h1>

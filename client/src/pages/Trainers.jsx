@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
 import { useTrainers } from '@hooks'
-import { TrainerList } from '@components'
-import { Link } from 'react-router-dom'
+import { TrainerList, Empty, Button } from '@components'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Trainers = () => {
   const { trainers, getTrainers } = useTrainers()
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     getTrainers()
@@ -34,23 +36,25 @@ const Trainers = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <Link to="/" className="text-blue-500 block mb-4">
-        Back to Home
-      </Link>
-      <Link to="/trainers/new" className="text-blue-500 block mb-4">
-        New Trainer
-      </Link>
-      <button
-        onClick={handleDownload}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Download CSV
-      </button>
+      <div className="flex justify-between items-center mb-8">
+        <Link
+          to="/"
+          className=" text-blue-500 px-4 py-2 rounded-md hover:underline transition-all duration-200 ease-in-out"
+        >
+          Back to Home
+        </Link>
+        <Button color="green" handleClick={() => navigate('/trainers/new')}>
+          New Trainer
+        </Button>
+        <Button handleClick={handleDownload} color="red">
+          Download CSV
+        </Button>
+      </div>
       <h1 className="text-4xl font-bold mb-8 text-center">Trainers</h1>
       {trainers.length > 0 ? (
         <TrainerList data={trainers} />
       ) : (
-        <p className="text-center">Loading trainers...</p>
+        <Empty text="There are no trainers yet." />
       )}
     </div>
   )

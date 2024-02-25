@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { useTrainers } from '../hooks/useTrainers'
+import { useTrainers } from '@hooks'
+import { Button } from '@components'
 
 export const TrainerCard = ({ trainer }) => {
   const { deleteTrainerById } = useTrainers()
@@ -21,18 +22,12 @@ export const TrainerCard = ({ trainer }) => {
       <p className="text-gray-500">Phone: {trainer.phone}</p>
       <p className="text-gray-500">Medals: {trainer.medals}</p>
       <div className="flex justify-end mt-4">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded"
-          onClick={handleEdit}
-        >
+        <Button color="blue" handleClick={handleEdit}>
           Edit
-        </button>
-        <button
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          onClick={handleDelete}
-        >
+        </Button>
+        <Button color="red" handleClick={handleDelete}>
           Delete
-        </button>
+        </Button>
       </div>
     </div>
   )
